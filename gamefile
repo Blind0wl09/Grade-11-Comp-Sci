@@ -2,7 +2,7 @@
 #October 10 2024
 #Johnny
 
-#text speed functions=================================================================
+#text speed functions============================================================================================================================================
 import time #import time allows for time.sleep() 
 import sys #import sys allows for sys.exit() 
 
@@ -10,21 +10,21 @@ def print_loader_title(text): #function for animating title
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
-        time.sleep(0.06)
+        time.sleep(0.05)
 
 def print_loader_dialogue(text): #function for animating dialogue
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
-        time.sleep(0.02)
+        time.sleep(0.01)
     return
 
 def print_loader_general(text): #function for animating everything else
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
-        time.sleep(0.05)
-#==============================================================================
+        time.sleep(0.04)
+#=========================================================================================================================================================================
 
 #title
 text_title = ("Welcome to ᑕIᑭᕼEᖇ")
@@ -81,7 +81,7 @@ while True:
     if text_location_choice == "1" or text_location_choice.lower() == "silverwood forest": #room 1
         print("\033[H\033[J") #clears the screen when user inputs one of the options above
         time.sleep(0.7)
-        print_loader_general("Press enter ")  #ask user to press enter
+        print_loader_general("Press enter cautiously ")  #ask user to press enter
         time.sleep(0.4)
         print_loader_general("to continue\n")
         input()
@@ -115,7 +115,7 @@ while True:
         time.sleep(0.4)
         text_location_choice = input(" ")
 
-#dialogue 1=================================================================================================
+#dialogue 1====================================================================================================================================================
 print("\033[H\033[J")
 time.sleep(0.5)
 print_loader_dialogue("RRAAA")
@@ -140,7 +140,7 @@ print_loader_dialogue("HHHHHHH\n")
 input()
 print("︕︕︕ ")
 input()
-print_loader_dialogue("A shriek that immediately catches your attention as you try to hear where it came from\n")
+print_loader_dialogue("A scream that immediately catches your attention as you try to hear where it came from\n")
 input()
 print_loader_dialogue("Suddenly you catch a glimpse of a silhouette  of a figure running towards you\n")
 input()
@@ -150,31 +150,29 @@ time.sleep(0.6)
 print("WHOOSH")
 input()
 print_loader_dialogue("A fox like creature appears before you with the intent of killing you\n")
-#========================================================================================================
+#=================================================================================================================================================================
 time.sleep(0.5)
 def print_loader_dialogue(message):
     print(message)
-
 print_loader_dialogue("What do you do?\n")
 time.sleep(0.5)
 print("\033[H\033[J") #erases everything printed previously in terminal
 
-
 #intiate combat
 combat_text = input("1) Fight\n" + "> ")
-if combat_text == "1" or combat_text.lower() == "fight":
-        print("\033[H\033[J")
-        time.sleep(1)
-if not combat_text ==  "1" or combat_text.lower() == "fight":
+while not combat_text ==  "1" or combat_text.lower() == "fight":
     combat_text = combat_text = input("1) Fight\n" + "> ")
         
+#clear screen
+print("\033[H\033[J") 
+time.sleep(1)
+
 #show match up 
 print_loader_general(user_input + " vs fox creature")
-time.sleep(1.5) 
+time.sleep(1) 
 print("\033[H\033[J") 
 
 import random
-import time
 
 # initialize variables
 fox_health = 20  # fox health
@@ -206,131 +204,138 @@ while True:
 
     elif combat_options == "2" or combat_options.lower() == "defend":
         defend_roll = random.randint(1, 100) #randomly choose a num
-        if defend_roll <= 75:  # 75% chance to succeed
+        if defend_roll <= 75:  # 75% chance of working
             print("Your defense worked! You successfully blocked the fox's attack.")
-            fox_attack = False  # Prevent the fox from attacking
+            fox_attack = False  #prevents fox from attacking
         else:
             print("Your defense failed! You couldn't block the attack.")
-        time.sleep(2)  # Delay to allow user to process the defense outcome
+        time.sleep(2) 
 
     else:
         print("Invalid option! Please choose 1 (Attack) or 2 (Defend).")
-        continue  # Go back to the beginning of the loop
+        continue #return to loop
 
-    # Fox attack logic (executed after user's action)
-    if fox_attack:  # Only attack if defense didn't work
-        time.sleep(1)  # Short pause before the fox attacks
+    #fox attack
+    if fox_attack:  
+        time.sleep(1)  
         user_input_health -= 10
         print("The fox attacked you for 10 damage!\n")
         time.sleep(1.25) 
         print("\033[H\033[J") 
         time.sleep(0.75)
 
-    round_timer -= 1  # Decrement round timer
+    round_timer -= 1  #reduce round
 
 if fox_health ==1:
     fox_health = 1
     time.sleep(2.5)
     print("\033[H\033[J")
     time.sleep(1)
-def print_loader_dialogue(dialogue, end='\n'):
-    print(dialogue, end=end)
-
-#dialogue 2================================================================================================
+def print_loader_dialogue(text):
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(0.01)
+time.sleep(0.5)
+#dialogue 2====================================================================================================================================================
 print_loader_dialogue("Fox creature: WAIT WAIT WAIT")
 input()
 print_loader_dialogue("Fox creature: SPARE ME PLEASE!")
 input()
 print_loader_dialogue("Fox creature: DON'T KILL ME PLEASE")
-time.sleep(1.5)
+input()
+print_loader_dialogue("Fox creature: I-")
+time.sleep(0.5)
+print_loader_dialogue("I HAVE A WIFE AND TWO SONS")
+input()
+print_loader_dialogue("Fox creature: ILL SHOW YOU WHERE THE PRISONERS ARE")
+input()
+print_loader_dialogue(user_input + ":" + "???")
+input()
+print_loader_dialogue("You wonder what the fox is talking about")
+input()
+print_loader_dialogue("You put your fists away and spare the creature's life")
+input()
+print_loader_dialogue("Fox creature: Thhank youu for sparringg mmee sir")
+input()
+print_loader_dialogue("Fox creature: Ccome wiith me")
+input()
+print_loader_dialogue("You follow him deep into the forest")
+time.sleep(0.5)
+print_loader_dialogue("...")
+input()
+print_loader_dialogue("Fox creature: Here we are sir")
+input()
+print_loader_dialogue("Fox creature: You can release the prisoners but just don't hurt us")
+input()
+print_loader_dialogue(user_input + ":" " Us ",end='')
+time.sleep(0.5)
+print_loader_dialogue("???")
+input()
+print_loader_dialogue("You then look around your surroundings and see that there is a great amount of foxes ressembling like him")
+input()
+print_loader_dialogue("Fox creature: My name is Kruger and we are of the Sylvynex race")
+input()
+print_loader_dialogue("Kruger: We were once just a peaceful species living in the forest happily...")
+input()
+print_loader_dialogue("Kruger: Until he came along and decided to rule the entire realm with his iron fist")
+input()
+print_loader_dialogue("Kruger: Thus we were forced to work and fight for him against our will...")
+input()
+print_loader_dialogue("Kruger: I deeply apologize for trying to kill you")
+input()
+print_loader_dialogue("Kruger: I was forced against my will and I vow to never do so again")
+time.sleep(1)
 print("\033[H\033[J")
 time.sleep(1)
-print_loader_general("Do you spare the creature? (yes/no)\n")
+print_loader_general("Do you sympathize with the creature and his species? (yes/no)\n")
 time.sleep(0.5)
 spare_fox = input("> ")
 if spare_fox == "no": 
     time.sleep(1)
-    print_loader_general("You beat the creature mercilessly to death")
+    print_loader_general("You massacre the entire species in your surrounding, leaving a trail of blood")
     time.sleep(0.75)
-    print_loader_general("With no guidance in life, you  are left with nothing but your own thoughts")
-    time.sleep(1.5)
-    sys.exit() #end
+    print_loader_general("With no guidance in life, you are left with nothing but your own thoughts")
+    input()
+    print_loader_general("When ever you come in contact with any living species, you are met with fear and hostility, thus you eradicate them")
+    input()
+    print_loader_dialogue("Until you meet the lorod  of the realm, who is the one who started the war")
+    input()
+    print_loader_dialogue("He bests you in a encounter but he spares you as he sees value in you")
+    input()
+    print_loader_dialogue("You join the evil army of the overlord and become one of the most evil generals in the army")
+    input()
+    print_loader_general("You live a life of evil and cruelty for the rest of your life")
+    time.sleep(2)
+    sys.ext()
 elif spare_fox == "yes":
     time.sleep(1)
-    print_loader_general("\nYou spare the fox creature.")
-    time.sleep(1)
-    print_loader_dialogue("Fox creature: I-", end='')
-    time.sleep(0.5)
-    print_loader_dialogue("I HAVE A WIFE AND TWO SONS")
-    input()
-    print_loader_dialogue("Fox creature: ILL SHOW YOU WHERE THE PRISONERS ARE")
-    input()
-    print_loader_dialogue(user_input + ":" + "???")
-    input()
-    print_loader_dialogue("You wonder what the fox is talking about")
-    input()
-    print_loader_dialogue("You put your fists away and spare the creature's life")
-    input()
-    print_loader_dialogue("Fox creature: Thhank youu for sparringg mmee sir")
-    input()
-    print_loader_dialogue("Fox creature: Ccome wiith me")
-    input()
-    print_loader_dialogue("You follow him deep into the forest ",end= '')
-    time.sleep(0.5)
-    print_loader_dialogue("...")
-    input()
-    print_loader_dialogue("Fox creature: Here we are sir")
-    input()
-    print_loader_dialogue("Fox creature: You can release the prisoners but just don't hurt us")
-    input()
-    print_loader_dialogue(user_input + ":" " Us ",end='')
-    time.sleep(0.5)
-    print_loader_dialogue("???")
-    input()
-    print_loader_dialogue("You then look around your surroundings and see that there is a great amount of foxes ressembling like him")
-    input()
-    print_loader_dialogue("Fox creature: My name is Kruger and we are of the Sylvynex race")
-    input()
-    print_loader_dialogue("Kruger: We were once just a peaceful species living in the forest happily...")
-    input()
-    print_loader_dialogue("Kruger: Until he came along and decided to rule the entire realm with his iron fist")
-    input()
-    print_loader_dialogue("Kruger: Thus we were forced to work and fight for him against our will...")
-    input()
-    print_loader_dialogue("Kruger: I deeply apologize for trying to kill you")
-    input()
-    print_loader_dialogue("Kruger: I was forced against my will and I vow to never do so again")
-    input()
-    print_loader_dialogue("Kruger: Unsuspectingly, you sympathize with Kruger and his species")
-    input()
-    print_loader_dialogue("You forgive Kruger for trying to kill you and move on")
-    input()
-    print_loader_dialogue("You set free the prisoners who all looked traumatized and scared")
-    input()
-    print_loader_dialogue(user_input + ":" + " Kruger..", end='')
-    time.sleep(0.75)
-    print_loader_dialogue("I will help you restore your species back to when you guys were peaceful")
-    input()
-    print_loader_dialogue("Kruger: Please fighter, save us!")
-    input()
-    print_loader_dialogue("Kruger: You're our only hope of salvation against this tyranny")
-    input()
-    print_loader_dialogue("You look around and see the Sylvynexs gathered around all looking miserable")
-    input()
-    print_loader_dialogue("Kruger: Adventurer, do you mind telling us your name?")
-    input()
-    print_loader_dialogue(user_input +  ":" + " My name is " + user_input)
-    input()
-    print_loader_dialogue("Kruger: Let's work together and save the realm " + user_input + "!")
-    input()
-    print_loader_dialogue("Kruger takes his hands and you both shake on it")
-    input()
-    print_loader_dialogue("Forming a vow of mastery to becoming allies from now on...")
-    time.sleep(2)
-while spare_fox == " ":
-    print_loader_general("Do you spare the creature? (yes/no)\n")
-    time.sleep(0.5)
-    spare_fox = input("> ")
+print_loader_general("\nYou sympathize with the fox creature.")
+time.sleep(1)
+print_loader_dialogue("You forgive Kruger for trying to kill you and move on")
+input()
+print_loader_dialogue("You set free the prisoners who all looked traumatized and scared")
+input()
+print_loader_dialogue(user_input + ":" + " Kruger..", end='')
+time.sleep(0.75)
+print_loader_dialogue("I will help you restore your species back to when you guys were peaceful")
+input()
+print_loader_dialogue("Kruger: Please fighter, save us!")
+input()
+print_loader_dialogue("Kruger: You're our only hope of salvation against this tyranny")
+input()
+print_loader_dialogue("You look around and see the Sylvynexs gathered around all looking miserable")
+input()
+print_loader_dialogue("Kruger: Adventurer, do you mind telling us your name?")
+input()
+print_loader_dialogue(user_input +  ":" + " My name is " + user_input)
+input()
+print_loader_dialogue("Kruger: Let's work together and save the realm " + user_input + "!")
+input()
+print_loader_dialogue("Kruger takes his hands and you both shake on it")
+input()
+print_loader_dialogue("Forming a vow of mastery to becoming allies from now on...")
+time.sleep(2)
 #===========================================================================================================
 print("\033[H\033[J")  # Clear screen
 time.sleep(1.5)
@@ -356,7 +361,7 @@ print_loader_dialogue("Kruger: Everyone go as we planned alright?")
 input()
 time.sleep(2)
 print_loader_dialogue("Thus the raid begins...")
-#==============================================================================================================================================
+#============================================================================================================================================================
 time.sleep(1.5)
 print("\033[H\033[J")
 time.sleep(1.5)
@@ -489,7 +494,7 @@ if lair_entrance == "1" or lair_entrance == "The Rooftop" or lair_entrance.lower
             if not combat(40):  # Assuming 40 HP for reinforcements
                 print("You were defeated by a lair guard!")
                 break
-#dialogue 3====================================================================================================
+#dialogue 3=======================================================================================================================================================
 print_loader_general("You have survived the first lair guard!")
 input()
 print_loader_general("Kruger rushes over, his expression a mix of relief and urgency.")
@@ -553,7 +558,7 @@ elif strategy_text == "2":
             print("You have been caught and defeated!")
             break
     else:
-#dialogue 4=========================================================================================================
+#dialogue 4==================================================================================================================================================
         print_loader_general("You've successfully taken out the guards silently!")
         input()
         print_loader_general("Kruger joins you, impressed by your tactics.")
@@ -601,7 +606,7 @@ input()
 print_loader_dialogue("You look up to see the tyrant standing in front of you, laughing")
 input()
 print_loader_dialogue("You transform into your armored state and charge at the tyrant")
-#================================================================================================================
+#======================================================================================================================================================================
 time.sleep(2)
 print_loader_general(user_input + " vs Evil Tyrant")
 time.sleep(2)
@@ -669,7 +674,7 @@ input()
 print_loader_dialogue("The end")
 time.sleep(5)
 sys.exit()
-#===========================================================================================================================
+#===============================================================================================================================================================
 if lair_entrance == "2" or lair_entrance == "Basement Window" or lair_entrance.lower() == "basement window":
     time.sleep(1.5)
     print_loader_general("You enter the basement through the window.")
@@ -796,7 +801,7 @@ while True:
         print("You have defeated the basement monster!")
         break
     time.sleep(1)
-#dialogue 6==============================================================================================================================
+#dialogue 6===================================================================================================================================================================
 print_loader_general("\nAfter you have defeated the basement monster, you notice a large door which seemed like what the basement monster was trying to guard")
 input()
 print_loader_general("You open the door and it leads you to a large jail cell where all the prisoners captured by the tyrant resides")
@@ -810,7 +815,7 @@ input()
 print_loader_general("While fighting off the hoard of guards with the group of Sylvynex, Kruger notices you")
 input()
 print_loader_general("Kruger: Come help me finish them off!")
-#==============================================================================================================
+#===============================================================================================================================================================
 time.sleep(2)
 print_loader_dialogue("What do you do?\n")
 time.sleep(0.5)
@@ -889,7 +894,7 @@ def combat(lairguard_health):
             return False  # Indicate that the player needs to face reinforcements
         break
 time.sleep(2.5)
-#dialogue 4==========================================================================================================
+#dialogue 4================================================================================================================================================
  
 print_loader_general("\nYou and the group take a small rest after the long battle")
 input()
@@ -934,7 +939,7 @@ input()
 print_loader_dialogue("You look up to see the tyrant standing in front of you, laughing")
 input()
 print_loader_dialogue("You transform into your armored state and charge at the tyrant")
-#========================================================================================================================================
+#========================================================================================================================================================================
 time.sleep(2)
 print_loader_general(user_input + " vs Evil Tyrant")
 time.sleep(2)
@@ -993,7 +998,7 @@ while True:
         print("You have defeated the tyrant")
         break
 time.sleep(1.5)
-#dialogue 5====================================================================================================
+#dialogue 5=========================================================================================================================================================
 print_loader_dialogue("\nYou are strong fighter, thank you for the challenge")
 input()
 print_loader_dialogue("You save the realm  from the tyrant, however you lost one of the closest people to you ever.")
@@ -1001,4 +1006,4 @@ input()
 print_loader_dialogue("The end")
 time.sleep(5)
 sys.exit()
-#==================================================================================================================
+#======================================================================================================================================================
