@@ -1,0 +1,65 @@
+#three jokes
+import os
+import time
+
+def type(message, delay=0.05):
+    """Simulates typing effect."""
+    for char in message:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+    print()  
+
+def joke1():
+    type("Why don't skeletons fight each other?")
+    time.sleep(1)
+    type("They don't have the guts!")
+
+def joke2():
+    type("What do you call fake spaghetti?")
+    time.sleep(1)
+    type("An impasta!")
+
+def joke3():
+    type("Why did the scarecrow win an award?")
+    time.sleep(1)
+    type("Because he was outstanding in his field!")
+
+def joke_menu():
+    """Displays the joke menu and handles user input."""
+    while True:
+        type("Do you want to hear joke (1), (2), or (3)?")
+        choice = input("> ").strip()
+
+        if choice == "1":
+            joke1()
+        elif choice == "2":
+            joke2()
+        elif choice == "3":
+            joke3()
+        else:
+            type("Invalid input, please choose 1, 2, or 3.")
+            os.system('cls')
+            continue 
+
+        type("Do you want to hear another joke? (yes/no)")
+        answer = input("> ").lower()
+        if answer != "yes":
+            break
+
+def ask_user():
+    """Main function to start the joke program."""
+    while True:
+        type("Do you want to hear some jokes? (yes/no)")
+        answer = input("> ").lower()
+
+        if answer == "yes":
+            os.system('cls' if os.name == 'nt' else 'clear')
+            time.sleep(0.5)
+            joke_menu()
+        elif answer == "no":
+            type("Okay, maybe next time!")
+            break  
+        else:
+            type("Invalid input. Please enter 'yes' or 'no'.")
+            os.system("cls")
+ask_user()
