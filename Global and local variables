@@ -1,0 +1,15 @@
+#differentiate global and local variable
+
+#define global variable
+global_var = "I am global!"
+
+#define function
+def print_variables():
+    print(global_var) #define local variable
+    local_var = "I am local!"
+    print(local_var)
+
+#call function
+print_variables()
+
+#Observations: global variables are able to be accessed from within a function or outside of a function while a local variables can only be accessed within the function they are defined in the function.
