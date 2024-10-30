@@ -1,0 +1,13 @@
+def greet_user(name):
+    '''
+    Greet the user with their name.
+
+    Parameters: 
+    name (str): The name of the user to greet.
+
+    Returns:
+    None
+    '''
+    print(greet_user.__doc__)
+    print("Hello , " + name + "!")
+greet_user("Sir")
