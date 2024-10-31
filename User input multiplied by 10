@@ -1,0 +1,15 @@
+#number from user times 10")
+
+import os
+
+while True:
+    try:
+        print("input a number")
+        user_input = float(input("> "))
+        user_ouput = user_input * 10
+        print("result:", user_ouput)
+        break
+    except ValueError:
+        print("please enter a number only")
+        os.system('cls')
+        continue
