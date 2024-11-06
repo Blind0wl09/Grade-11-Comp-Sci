@@ -1,0 +1,52 @@
+#2D Lists
+
+shoe_rack = []
+shoe_rack.append(['Nike', 'Adidas', 'Reebok'])
+shoe_rack.append(['Converse', 'Vans', 'New Balance'])
+
+print(shoe_rack)
+print(len(shoe_rack)) #it will return the number of lists in shoe_rack variable
+row =  shoe_rack[0] 
+print(row) #it will return the first list in shoe_rack variable since python is 0 indexed
+
+shoe_rack.insert(1,  ['Puma', 'Fila'])
+print(shoe_rack) #The different between append and insert is that the insert function is used to insert objects at a specific position in the list.
+
+shoe_rack = shoe_rack[1:3] #slicing is used to cut out a specific part out of the list. In this case the ratio 1:3 will cut out anything from index 1 to 3. The index 3 is not included in the cut out part
+print(shoe_rack)
+
+shoe_rack = shoe_rack[-1]
+print(shoe_rack) #the -1 index will return the last list in the shoe_rack
+
+shoe_rack = shoe_rack[:1]
+shoe_rack = shoe_rack[3:]
+print(shoe_rack) #the output [:1] will return the first object in the list and the output [3:] will  return everything from index 3 to the end of the list.
+#thus since the list  only has 3 objects the output will be the last object in the list. But it will return nothing since the list only has 3 objects and the index 3 is out of range.
+
+shoe_rack = []
+shoe_rack.append(['Nike', 'Adidas', 'Reebok'])
+shoe_rack.append(['Converse', 'Vans', 'New Balance'])
+
+shoe_rack.pop(1)
+print(shoe_rack) #the pop function is used to remove an object at a specific index
+
+shoe_rack = []
+shoe_rack.append(['Nike', 'Adidas', 'Reebok'])
+shoe_rack.append(['Converse', 'Vans', 'New Balance'])
+
+#the remove function is used to remove the first occurrence of a specific object in the list
+shoe_rack.remove(['Converse', 'Vans', 'New Balance'])
+print(shoe_rack) 
+shoe_rack.append(['Nike', 'Adidas', 'Reebok'])
+shoe_rack.append(['Converse', 'Vans', 'New Balance'])
+
+shoe_rack=shoe_rack[0:1] + shoe_rack[-1]
+print(shoe_rack)  #the output will be the first list in the shoe_rack plus the last list in the shoe
+
+shoe_rack = [ ["Nike" , "Adidas",  "Reebok"], ["Converse", "Vans", "New Balance"] ]
+
+shoe_rack.sort()
+print(shoe_rack) #the sort function is used to sort the list in ascending order
+
+shoe_rack.reverse()
+print(shoe_rack) #the reverse function is used to reverse the order of the list
