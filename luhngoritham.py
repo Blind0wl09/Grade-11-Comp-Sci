@@ -11,7 +11,7 @@ reset = '\033[0m'
 def type(text):  # function to animate text with delay parameter
     for char in text: #for loops  through each character in the text
         print(char, end='', flush=True) #flush prints out the character immediately
-        time.sleep(0.001)  # delays the print of each letter by the assigned delay value
+        time.sleep(0.002)  # delays the print of each letter by the assigned delay value
     print()
 
 def clear_screen():
@@ -96,10 +96,11 @@ def read_postalcode(user_postal):
     with open('postal_codes.csv', mode='r', encoding='ISO-8859-1', newline='') as file:     #Reads list of postal codes
         reader = csv.reader(file, delimiter='|')
         for row in reader:
+            print(row)
             if row[0] == user_postal:
                 return True
-            else:
-                return False  
+            
+        return False  
 
 
 def validatePostalCode(user_postal):
