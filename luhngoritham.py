@@ -79,7 +79,6 @@ def enterCustomerInfo():
     while True:
         user_postal = input("> ")
         if not user_postal:  # Check for empty input
-            clear_screen()
             print("Please enter a valid postal code")
             continue
         if validatePostalCode(user_postal):  # Validate the postal code
@@ -107,14 +106,13 @@ def enterCustomerInfo():
 '''
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - validatePostalCode - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def read_postalcode(user_postal):
-
     with open('postal_codes.csv', mode='r', encoding='ISO-8859-1', newline='') as file:     #Reads list of postal codes
         reader = csv.reader(file, delimiter='|')
         for row in reader:
             print(row)
             if row[0] == user_postal:
                 return True
-                    
+            
         return False  
 
 
