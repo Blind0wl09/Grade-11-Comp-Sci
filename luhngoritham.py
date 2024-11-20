@@ -16,7 +16,7 @@ def type(text):  # function to animate text with delay parameter
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
-
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - PRINT MENU - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def printMenu():
     clear_screen()
     menu_text = textwrap.dedent(f"""
@@ -39,26 +39,38 @@ def printMenu():
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - enterCustomerInfo- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def enterCustomerInfo():
     clear_screen()
     type("Input your first name")                           #AASSES FOR FIRST NAMES
     user_fname = input("> ")
     while user_fname== "":
+        clear_screen()
         print("Please enter a valid first name")
+        type("Input your first name")                  
+        user_fname = input("> ")
     else:
         pass
+
     clear_screen()
     type("Input your last name")                            #ASKS FOR LAST NAME
     user_lname = input("> ")
     while user_lname == "":
+        clear_screen()
         print("Please enter a valid last name")
+        type("Input your last name")               
+        user_lname = input("> ")
     else:
         pass
+
     clear_screen()
     type("Please enter the city you reside in")             #ASKS FOR CITY
     user_city = input("> ")
     while user_city == "":
+        clear_screen()
         print("Please enter a valid city")
+        type("Please enter the city you reside in") 
+        user_city = input("> ")
     else:
         pass
 
@@ -67,6 +79,7 @@ def enterCustomerInfo():
     while True:
         user_postal = input("> ")
         if not user_postal:  # Check for empty input
+            clear_screen()
             print("Please enter a valid postal code")
             continue
         if validatePostalCode(user_postal):  # Validate the postal code
@@ -92,14 +105,16 @@ def enterCustomerInfo():
     You may place as many or as few parameters as needed
     This functi may also be broken down further depending on your algorithm/approach
 '''
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - validatePostalCode - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def read_postalcode(user_postal):
+
     with open('postal_codes.csv', mode='r', encoding='ISO-8859-1', newline='') as file:     #Reads list of postal codes
         reader = csv.reader(file, delimiter='|')
         for row in reader:
             print(row)
             if row[0] == user_postal:
                 return True
-            
+                    
         return False  
 
 
@@ -116,6 +131,7 @@ def validatePostalCode(user_postal):
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - validateCreditCard - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def validateCreditCard():
     '''
     This function is to be edited to achieve the task.
@@ -123,6 +139,7 @@ def validateCreditCard():
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - generateCustomerDataFile - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def generateCustomerDataFile():
     pass    # Remove this pass statement and add your own code below
 
