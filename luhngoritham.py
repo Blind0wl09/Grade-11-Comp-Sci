@@ -2,7 +2,7 @@
 # Minimal built in functions are to be used and the majority of functions must be
 # created yourself
 
-import csv, os, time, textwrap, random  # import modules
+import csv, os, time, textwrap, random, pygame  # import modules
 
 # Define the color escape codes
 red = '\033[31m'         # Red text color
@@ -10,6 +10,16 @@ purple = '\033[35m'      # Purple text color
 bright_green = '\033[92m'  # Bright green text color
 underline = '\033[4m'     # Underline text color
 reset = '\033[0m'        # Reset color (to default)
+
+pygame.mixer.init()
+
+# Load and play the MP3 file
+def music_play():
+    pygame.mixer.music.load("fnaf pizz theme.mp3")  # Make sure the file name matches
+    pygame.mixer.music.play(-1, 0.0)  # 
+
+def music_stop():
+    pygame.mixer.music.stop()
 
 # Generate random RGB values for text color
 R = random.randint(0, 255)
@@ -34,6 +44,26 @@ def new_line():
 
 def clear_screen(): #clear screen function
     os.system('cls' if os.name == 'nt' else 'clear') 
+
+music_stop()
+clear_screen()
+type(f"{red}Warning! Background music is present in this program!{reset}")
+time.sleep(1.5)
+clear_screen()
+while True:
+    type("Would you like to mute the background music? (yes/no)")
+    mute = input("> ")
+    
+    if mute == "yes" or mute == "Yes":
+        music_stop()
+        break
+    elif mute == "no" or mute == "No":
+        music_play()
+        break
+    else:
+        clear_screen()
+        type(f"{red}Invalid input. Please enter 'yes' or 'no'.{reset}")
+        time.sleep(1)
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - PRINT MENU - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def printMenu(): #print menu function
     clear_screen()
@@ -47,16 +77,9 @@ def printMenu(): #print menu function
     9. Quit
     Enter menu option (1-9)
     """)
-    type(menu_text) #animate menu
-    
-    userInput = print('> ', end='')
-    return userInput 
-'''
-    This function is to be edited to achieve the task.
-    It is your decision to make this function a procedural or functional type
-    You may place as many or as few parameters as needed
-    This function may also be broken down further depending on your algorithm/approach
-'''
+    type(menu_text.strip()) #animate menu
+
+    new_line()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - enterCustomerInfo- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def enterCustomerInfo(customer_id): #function to receive customer's info
     clear_screen()
@@ -139,39 +162,31 @@ def enterCustomerInfo(customer_id): #function to receive customer's info
         return customer_information, customer_id
     else:
         return None
-
-'''
-    This function is to be edited to achieve the task.
-    It is your decision to make this function a procedural or functional type
-    You may place as many or as few parameters as needed
-    This functi may also be broken down further depending on your algorithm/approach
-'''
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - validatePostalCode - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def read_postalcode(user_postal):
     try:
-        with open('postal_codes.csv', mode='r', encoding='ISO-8859-1', newline='') as file:     #Reads list of postal codes
-            reader = csv.reader(file, delimiter='|')
+        with open('postal_codes.csv', 'r', encoding= 'iso-8859-1', newline='') as file:
+            reader = csv.reader(file, delimiter='|')  # Use '|' as delimiter
             for row in reader:
-                if row[0] == user_postal:
+                if row and row[0] == user_postal:
                     return True
-            return False  
+        return False
     except FileNotFoundError:
-        type("Postal code not found.")
-        return True                 #this is for the file.run since it wont work without it. should be false
+        print(f"{red}Postal code database file not found{reset}")
+        return False
 
 def validatePostalCode(user_postal):
-    if len(user_postal) == 3 and read_postalcode(user_postal): #Checks if user given postal is in proper format
+    if not user_postal:
+        clear_screen()
+        print(f"{red}Postal code cannot be empty{reset}")
+        return False
+    
+    if read_postalcode(user_postal):
         return True
     else:
         clear_screen()
-        print(f"{red}Invalid postal code (Make sure your postal code is in the format XXX and all letters are capitalized){reset}")
+        print(f"{red}Invalid postal code. Please ensure it's a valid postal code in the database.{reset}")
         return False
-'''
-    This function is to be edited to achieve the task.
-    It is your decision to make this function a procedural or functional type
-    You may place as many or as few parameters as needed
-    This function may also be broken down further depending on your algorithm/approach
-'''
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - validateCreditCard - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def luhn_algorithm_check(user_credit): #credit card number checker with luhn algorithm
     total_sum = 0 
@@ -192,12 +207,6 @@ def validateCreditCard(user_credit):
         clear_screen()
         print(f"{red}Invalid credit card{reset}")
         return False
-'''
-    This function is to be edited to achieve the task.
-    It is your decision to make this function a procedural or functional type
-    You may place as many or as few parameters as needed
-    This function may also be broken down further depending on your algorithm/approach
-'''
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - generateCustomerDataFile - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def generateCustomerDataFile():
     clear_screen()
@@ -257,7 +266,7 @@ exitCondition = "9"
 # More variables for the main may be declared in the space below
 while userInput != exitCondition:
     printMenu()                 # Printing out the main menu
-    userInput = input();        # User selection from the menu
+    userInput = input("> ");        # User selection from the menu
 
     if userInput == enterCustomerOption:
         # Only the line below may be editted based on the parameter list and how you design the method return
@@ -274,8 +283,8 @@ if userInput == exitCondition:
     clear_screen()
     type("Program Terminated")
     time.sleep(1)
+    music_stop()
     clear_screen()
     file =  "data.csv"
     with open(file, 'w'):   #writes nothing and deletes all information when closed
         pass
-    
