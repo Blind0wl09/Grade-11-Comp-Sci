@@ -4,7 +4,7 @@
 
 import csv, os, time, textwrap, random, pygame  # import modules
 
-# Define the color escape codes
+#Ansi escape codes
 red = '\033[31m'         # Red text color
 purple = '\033[35m'      # Purple text color
 bright_green = '\033[92m'  # Bright green text color
@@ -13,27 +13,24 @@ reset = '\033[0m'        # Reset color (to default)
 
 pygame.mixer.init()
 
-# Load and play the MP3 file
+
 def music_play():
-    pygame.mixer.music.load("fnaf pizz theme.mp3")  # Make sure the file name matches
-    pygame.mixer.music.play(-1, 0.0)  # 
+    pygame.mixer.music.load("fnaf pizz theme.mp3") 
+    pygame.mixer.music.play(-1, 0.0)  
 
 def music_stop():
     pygame.mixer.music.stop()
 
-# Generate random RGB values for text color
 R = random.randint(0, 255)
 G = random.randint(0, 255)
 B = random.randint(0, 255)
 
-# Create random text color escape sequence
-TEXT_COLOR = f"\x1b[38;2;{R};{G};{B}m"  # Random text color (RGB)
-BG_COLOR = f"\x1b[48;2;{random.randint(0, 255)};{random.randint(0, 255)};{random.randint(0, 255)}m"  # Random background color
+TEXT_COLOR = f"\x1b[38;2;{R};{G};{B}m"  
 
-# Customer ID initialization
+
 customer_id = 0
 
-def type(text):  # function to animate text with delay parameter
+def type(text): 
     for char in text: 
         print(char, end='', flush=True) 
         time.sleep(0.009) 
@@ -42,8 +39,18 @@ def type(text):  # function to animate text with delay parameter
 def new_line():
     print("\n")
 
-def clear_screen(): #clear screen function
+def clear_screen(): 
     os.system('cls' if os.name == 'nt' else 'clear') 
+
+def resetCustomerData():
+    filename = "data.csv"
+    try:
+        os.remove(filename)
+        print("Previous customer data has been deleted.")
+    except FileNotFoundError:
+        print("No existing customer data file found.")
+    
+    open(filename, 'w').close()
 
 music_stop()
 clear_screen()
@@ -122,10 +129,10 @@ def enterCustomerInfo(customer_id): #function to receive customer's info
         while True:
             user_postal = input("> ")
             try:
-                if not user_postal:                     # Check for empty input
+                if not user_postal:                    
                     print(f"{red}Please enter a valid postal code{reset}")
                     continue
-                if validatePostalCode(user_postal):      # Validate the postal code
+                if validatePostalCode(user_postal): 
                     type(f"{bright_green}Postal code is valid! Proceeding...{reset}")
                     time.sleep(0.75)
                     break
@@ -166,7 +173,7 @@ def enterCustomerInfo(customer_id): #function to receive customer's info
 def read_postalcode(user_postal):
     try:
         with open('postal_codes.csv', 'r', encoding= 'iso-8859-1', newline='') as file:
-            reader = csv.reader(file, delimiter='|')  # Use '|' as delimiter
+            reader = csv.reader(file, delimiter='|') 
             for row in reader:
                 if row and row[0] == user_postal:
                     return True
@@ -212,36 +219,45 @@ def generateCustomerDataFile():
     clear_screen()
     print("Please enter the user number you wish to view (Input 'return' to exit).")
     generate_search_user = input("> ")
-
+    
     if generate_search_user == 'return':
         printMenu()
         return
-
-    filename = "data.csv"      # CSV file only opens through EXCEL and won't work. 
-    found = False
-
-    with open(filename, 'r') as csvfile:
-        reader = csv.reader(csvfile)
-        for row in reader:
-            # Skip empty rows or rows with insufficient columns
-            if not row or len(row) < 1:
-                continue
-            
-            # If the user number matches, print their data
-            if row[0] == generate_search_user:  # Assuming the user number is in the first column
-                clear_screen()
-                print(f"User: {purple}{row[0]}{reset}")
-                print(f"First name: {purple}{row[1]}{reset}")
-                print(f"Last name: {purple}{row[2]}{reset}")
-                print(f"City: {purple}{row[3]}{reset}")
-                print(f"Postal code: {purple}{row[4]}{reset}")
-                print(f"Credit card: {purple}{row[5]}{reset}")
-                found = True
-                input("> ")
-                break
     
-    if not found:
-        print(f"User with number {generate_search_user} not found.")
+    found = False
+    filename = "data.csv"
+    
+    try:
+        with open(filename, 'r') as csvfile:
+            reader = csv.reader(csvfile, delimiter='|')  
+            for row in reader:
+                if not row or len(row) < 6:
+                    continue
+                
+                print(f"Comparing: {row[0]} with {generate_search_user}")
+                
+                if str(row[0]).strip() == str(generate_search_user).strip():
+                    clear_screen()
+                    print(f"User: {purple}{row[0]}{reset}")
+                    print(f"First name: {purple}{row[1]}{reset}")
+                    print(f"Last name: {purple}{row[2]}{reset}")
+                    print(f"City: {purple}{row[3]}{reset}")
+                    print(f"Postal code: {purple}{row[4]}{reset}")
+                    print(f"Credit card: {purple}{row[5]}{reset}")
+                    found = True
+                    print("Is this the right user? (yes/no)")
+                    user_confirmation = input("> ")
+                    if user_confirmation == "yes":
+                        break
+                    else:
+                        continue
+        
+        if not found:
+            print(f"User with number {generate_search_user} not found.")
+            time.sleep(1)
+    
+    except FileNotFoundError:
+        print(f"{red}Data file not found{reset}")
         time.sleep(1)
 
 ####################################################################
@@ -285,6 +301,4 @@ if userInput == exitCondition:
     time.sleep(1)
     music_stop()
     clear_screen()
-    file =  "data.csv"
-    with open(file, 'w'):   #writes nothing and deletes all information when closed
-        pass
+    resetCustomerData()
