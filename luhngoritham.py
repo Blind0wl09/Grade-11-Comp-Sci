@@ -154,24 +154,25 @@ def enterCustomerInfo(customer_id): #function to receive customer's info
             type(f"{bright_green}Credit card is valid! Proceeding...{reset}")
             time.sleep(0.75)
             break
-    clear_screen()
-    print(f"First name: {purple}{user_fname}{reset}\nLast name: {purple}{user_lname}{reset}\nCity: {purple}{user_city}{reset}\nPostal code: {purple}{user_postal}{reset}\nCredit card: {purple}{user_credit}{reset}")
-    type("Is this the correct info?(yes/no)")
-    user_confirmation = input("> ")
-    while True: 
-        while user_confirmation != "Yes" or"yes" or "No" or "no":
-            type(f"{red}INVALID{reset}")
-            user_confirmation = input("> ")
-            if user_confirmation == "Yes" or "yes":
-                print("Info confirmed!")
-                customer_information = [customer_id, user_fname, user_lname, user_city, user_postal, user_credit]
-                filename = "data.csv"
-                with open(filename, 'a', newline='', encoding='utf-8') as csvfile:
-                    csvwriter = csv.writer(csvfile, delimiter='|')  
-                    csvwriter.writerow(customer_information)
-                return customer_information, customer_id
-            elif user_confirmation == "No" or "no":
-                return None
+    while True:
+        clear_screen()
+        print(f"First name: {purple}{user_fname}{reset}\nLast name: {purple}{user_lname}{reset}\nCity: {purple}{user_city}{reset}\nPostal code: {purple}{user_postal}{reset}\nCredit card: {purple}{user_credit}{reset}")
+        type("Is this the correct info?(yes/no)")
+        user_confirmation = input("> ")
+        if user_confirmation == "Yes" or user_confirmation == "yes":
+            print("Info confirmed!")
+            customer_information = [customer_id, user_fname, user_lname, user_city, user_postal, user_credit]
+            filename = "data.csv"
+            with open(filename, 'a', newline='', encoding='utf-8') as csvfile:
+                csvwriter = csv.writer(csvfile, delimiter='|')  
+                csvwriter.writerow(customer_information)
+            return customer_information, customer_id
+        elif user_confirmation == "No" or user_confirmation == "no":
+            print("Info not confirmed!")
+            return None, None
+        else:
+            print("Invalid input!")
+            continue
             
         
 
