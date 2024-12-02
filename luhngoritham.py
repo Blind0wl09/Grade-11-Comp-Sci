@@ -42,16 +42,6 @@ def new_line():
 def clear_screen(): 
     os.system('cls' if os.name == 'nt' else 'clear') 
 
-def resetCustomerData():
-    filename = "data.csv"
-    try:
-        os.remove(filename)
-        print("Previous customer data has been deleted.")
-    except FileNotFoundError:
-        print("No existing customer data file found.")
-    
-    open(filename, 'w').close()
-
 music_stop()
 clear_screen()
 type(f"{red}Warning! Background music is present in this program!{reset}")
@@ -90,7 +80,17 @@ def printMenu(): #print menu function
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - enterCustomerInfo- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def enterCustomerInfo(customer_id): #function to receive customer's info
     clear_screen()
-    print(f"{TEXT_COLOR}USER{reset} {customer_id + 1}")
+    filename = "data.csv"
+    try:
+        with open(filename, 'r') as csvfile:
+            reader = csv.reader(csvfile, delimiter='|')  
+            for row in reader:
+                pass
+            customer_id =  int(row[0]) + 1
+    except:
+            customer_id = 1
+            
+    print(f"{TEXT_COLOR}USER {reset}{customer_id}")
     type("Input your first name")                           #ASKS FOR FIRST NAMES
     user_fname = input("> ")
     while user_fname== "":
@@ -158,17 +158,23 @@ def enterCustomerInfo(customer_id): #function to receive customer's info
     print(f"First name: {purple}{user_fname}{reset}\nLast name: {purple}{user_lname}{reset}\nCity: {purple}{user_city}{reset}\nPostal code: {purple}{user_postal}{reset}\nCredit card: {purple}{user_credit}{reset}")
     type("Is this the correct info?(yes/no)")
     user_confirmation = input("> ")
-    if user_confirmation == "Yes" or user_confirmation == "yes":
-        print("Info confirmed!")
-        customer_id += 1
-        customer_information = [customer_id, user_fname, user_lname, user_city, user_postal, user_credit]
-        filename = "data.csv"
-        with open(filename, 'a', newline='', encoding='utf-8') as csvfile:
-            csvwriter = csv.writer(csvfile, delimiter='|')  
-            csvwriter.writerow(customer_information)
-        return customer_information, customer_id
-    else:
-        return None
+    while True: 
+        while user_confirmation != "Yes" or"yes" or "No" or "no":
+            type(f"{red}INVALID{reset}")
+            user_confirmation = input("> ")
+            if user_confirmation == "Yes" or "yes":
+                print("Info confirmed!")
+                customer_information = [customer_id, user_fname, user_lname, user_city, user_postal, user_credit]
+                filename = "data.csv"
+                with open(filename, 'a', newline='', encoding='utf-8') as csvfile:
+                    csvwriter = csv.writer(csvfile, delimiter='|')  
+                    csvwriter.writerow(customer_information)
+                return customer_information, customer_id
+            elif user_confirmation == "No" or "no":
+                return None
+            
+        
+
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - validatePostalCode - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 def read_postalcode(user_postal):
     try:
@@ -287,8 +293,11 @@ while userInput != exitCondition:
     if userInput == enterCustomerOption:
         # Only the line below may be editted based on the parameter list and how you design the method return
         # Any necessary variables may be added to this if section, but nowhere else in the code
-        customer_data,customer_id = enterCustomerInfo(customer_id)
-        print("Customer info", customer_data)
+        try:
+            customer_data,customer_id = enterCustomerInfo(customer_id)
+            print("Customer info", customer_data)
+        except:
+            pass
 
     elif userInput == generateCustomerOption: 
         # Only the line below may be editted based on the parameter list and how you design the method return
@@ -301,4 +310,3 @@ if userInput == exitCondition:
     time.sleep(1)
     music_stop()
     clear_screen()
-    resetCustomerData()
