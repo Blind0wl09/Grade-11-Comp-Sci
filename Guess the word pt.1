@@ -1,0 +1,30 @@
+import os
+secret_word = 'owl'
+reset = '\033[0m' 
+
+os.system('cls')
+
+def get_guess():
+    while True:
+        user_guess = input("Guess: ") #get user input
+        if user_guess == '': #check if user input is empty:
+            print("You must guess something!\n")
+            continue
+        if len(user_guess) != 1: #check if user input is more than one character
+            print("Your guess must have exactly one character!\n")
+            continue
+        elif user_guess.isdigit(): #check if user input is a digit
+            print("Secret word does not contain any integers!\n")
+            continue
+        elif not user_guess.islower(): #check if user input is not a lowercase letter
+            print("Your guess must be a lowercase letter!\n")
+            continue
+        elif user_guess not in secret_word: #check if user input is not in the valid characters
+            print("That letter is not in the secret word!\n")
+            continue
+        elif user_guess in secret_word: #check if user input is in the secret word
+            print("That letter is in the secret word!\n")
+            continue
+        return user_guess #return user input if it is valid
+
+guess = get_guess()
